@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>HHR Hub</title>
+    <title>HHR Hub - App Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
+            font-family: Arial;
+            background: linear-gradient(to right, #2193b0, #6dd5ed);
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1e90ff, #00c6ff);
-            color: white;
+            padding: 20px;
             text-align: center;
-        }
-
-        .container {
-            padding: 80px 20px;
+            color: white;
         }
 
         h1 {
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 18px;
             margin-bottom: 30px;
         }
 
-        .btn {
+        .app-card {
             background: white;
-            color: #1e90ff;
-            padding: 12px 25px;
+            color: black;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 300px;
+            margin: auto;
+        }
+
+        .app-card img {
+            width: 100px;
+            border-radius: 20px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 20px;
+            background: #28a745;
+            color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 8px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to HHR Hub</h1>
-        <p>Yeh meri official website hai.</p>
-        <a class="btn" href="#">Explore</a>
-    </div>
+
+<h1>HHR Hub App Store</h1>
+
+<div class="app-card">
+    <img src="https://via.placeholder.com/100" alt="App Logo">
+    <h2>My First App</h2>
+    <p>Yeh mera pehla app hai.</p>
+    <a class="download-btn" href="#">Download</a>
+</div>
+
 </body>
 </html>
