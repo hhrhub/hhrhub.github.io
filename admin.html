@@ -1,91 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>HHRAPK Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+
 <style>
-body{
-background:#020617;
-color:white;
-font-family:Arial;
-text-align:center;
-padding:20px;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #020617;
+  color: white;
+  text-align: center;
 }
 
-input,textarea{
-width:90%;
-padding:10px;
-margin:8px;
-border-radius:8px;
-border:none;
+.panel {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
 }
 
-button{
-padding:10px 25px;
-border:none;
-border-radius:20px;
-background:linear-gradient(90deg,#3b82f6,#22c55e);
-color:white;
-font-size:16px;
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  border: none;
 }
 
-.app{
-background:#0f172a;
-padding:10px;
-margin:10px;
-border-radius:10px;
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.app-list {
+  margin-top: 30px;
+}
+
+.app-item {
+  background: #020617;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
 }
 </style>
 </head>
+
 <body>
 
-<h2>HHRAPK Admin</h2>
+<div class="panel">
+  <h2>Admin Panel</h2>
 
-<input id="name" placeholder="App name">
-<input id="logo" placeholder="Logo URL">
-<input id="link" placeholder="Download link">
-<textarea id="desc" placeholder="Description"></textarea>
+  <input id="name" placeholder="App name">
+  <input id="logo" placeholder="Logo image link">
+  <input id="link" placeholder="Download link">
+  <textarea id="desc" placeholder="Description"></textarea>
 
-<br>
-<button onclick="addApp()">Add App</button>
+  <button onclick="addApp()">Add App</button>
 
-<h3>Apps</h3>
-<div id="apps"></div>
+  <div class="app-list" id="appList"></div>
+</div>
 
+<script src="apps.js"></script>
 <script>
-function loadApps(){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-let html="";
-apps.forEach((app,i)=>{
-html+=`
-<div class="app">
-<b>${app.name}</b><br>
-<button onclick="deleteApp(${i})">Delete</button>
-</div>`;
-});
-document.getElementById("apps").innerHTML=html;
+function saveApps() {
+  localStorage.setItem("apps", JSON.stringify(apps));
 }
 
-function addApp(){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-apps.push({
-name:document.getElementById("name").value,
-logo:document.getElementById("logo").value,
-link:document.getElementById("link").value,
-desc:document.getElementById("desc").value
-});
-localStorage.setItem("apps",JSON.stringify(apps));
-loadApps();
+function loadApps() {
+  let stored = localStorage.getItem("apps");
+  if (stored) {
+    apps = JSON.parse(stored);
+  }
 }
 
-function deleteApp(i){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-apps.splice(i,1);
-localStorage.setItem("apps",JSON.stringify(apps));
-loadApps();
+function addApp() {
+  let app = {
+    name: document.getElementById("name").value,
+    logo: document.getElementById("logo").value,
+    link: document.getElementById("link").value,
+    desc: document.getElementById("desc").value
+  };
+
+  apps.push(app);
+  saveApps();
+  renderApps();
+}
+
+function deleteApp(index) {
+  apps.splice(index, 1);
+  saveApps();
+  renderApps();
+}
+
+function renderApps() {
+  let list = document.getElementById("appList");
+  list.innerHTML = "";
+
+  apps.forEach((app, index) => {
+    let div = document.createElement("div");
+    div.className = "app-item";
+    div.innerHTML = `
+      <b>${app.name}</b><br>
+      <button onclick="deleteApp(${index})">Delete</button>
+    `;
+    list.appendChild(div);
+  });
 }
 
 loadApps();
+renderApps();
 </script>
 
 </body>
