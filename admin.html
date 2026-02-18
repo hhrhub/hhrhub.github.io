@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<style>
+body {
+    font-family: Arial;
+    background: #020617;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+input, textarea {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(90deg,#3b82f6,#22c55e);
+    color: white;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Admin Panel</h2>
+
+<input id="name" placeholder="App name">
+<input id="logo" placeholder="Logo image link">
+<input id="link" placeholder="Download link">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<br>
+<button onclick="addApp()">Add App</button>
+
+<script>
+function addApp() {
+    let apps = JSON.parse(localStorage.getItem("apps")) || [];
+
+    apps.push({
+        name: document.getElementById("name").value,
+        logo: document.getElementById("logo").value,
+        link: document.getElementById("link").value,
+        desc: document.getElementById("desc").value
+    });
+
+    localStorage.setItem("apps", JSON.stringify(apps));
+    alert("App added successfully!");
+}
+</script>
+
+</body>
+</html>
