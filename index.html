@@ -3,28 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HHR Hub</title>
+
+<!-- SEO Title -->
+<title>HHR Hub – Premium App Download Center</title>
+
+<!-- SEO Description -->
+<meta name="description" content="Download premium apps from HHR Hub. Fast, secure and easy app downloads with modern interface.">
+
+<!-- Keywords -->
+<meta name="keywords" content="HHR Hub, app download, premium apps, mod apps, apk download">
+
+<!-- Author -->
+<meta name="author" content="HHR Hub">
+
+<!-- Open Graph (for social sharing) -->
+<meta property="og:title" content="HHR Hub – Premium App Download Center">
+<meta property="og:description" content="Download premium apps fast and securely.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hhrhub.github.io">
 
 <style>
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(180deg, #020617, #020617);
+  background: linear-gradient(180deg, #020617, #030d2a);
   color: white;
   text-align: center;
 }
 
 .header {
-  padding: 30px 20px;
+  padding: 40px 20px;
 }
 
 .header h1 {
+  font-size: 42px;
   margin: 0;
-  font-size: 40px;
 }
 
 .header p {
-  color: #94a3b8;
+  color: #9aa4c7;
 }
 
 .container {
@@ -32,32 +49,33 @@ body {
 }
 
 .card {
-  background: #020617;
+  background: #020b22;
   border-radius: 20px;
-  padding: 25px;
+  padding: 30px;
   margin: 20px auto;
-  max-width: 350px;
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
+  max-width: 320px;
+  box-shadow: 0 0 40px rgba(0, 140, 255, 0.15);
 }
 
 .card img {
-  width: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 20px;
 }
 
 .card h2 {
-  margin: 15px 0 5px;
+  margin: 15px 0 10px;
 }
 
 .card p {
-  color: #94a3b8;
+  color: #9aa4c7;
 }
 
-.button {
+.btn {
   display: inline-block;
   margin-top: 15px;
-  padding: 12px 30px;
-  border-radius: 25px;
+  padding: 12px 28px;
+  border-radius: 30px;
   background: linear-gradient(90deg, #3b82f6, #22c55e);
   color: white;
   text-decoration: none;
@@ -77,20 +95,17 @@ body {
 
 <script src="apps.js"></script>
 <script>
-let container = document.getElementById("appContainer");
+const container = document.getElementById("appContainer");
 
 apps.forEach(app => {
-  let card = document.createElement("div");
-  card.className = "card";
-
-  card.innerHTML = `
-    <img src="${app.logo}">
-    <h2>${app.name}</h2>
-    <p>${app.desc}</p>
-    <a class="button" href="${app.link}">Download</a>
+  container.innerHTML += `
+    <div class="card">
+      <img src="${app.logo}">
+      <h2>${app.name}</h2>
+      <p>${app.desc}</p>
+      <a class="btn" href="${app.link}">Download</a>
+    </div>
   `;
-
-  container.appendChild(card);
 });
 </script>
 
