@@ -4,59 +4,84 @@
 <meta charset="UTF-8">
 <title>Admin Panel</title>
 <style>
-body {
-    font-family: Arial;
-    background: #020617;
-    color: white;
-    text-align: center;
-    padding: 20px;
+body{
+background:#020b1f;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
 }
-
-input, textarea {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: none;
+input,textarea,button{
+width:90%;
+margin:8px;
+padding:10px;
+border-radius:8px;
+border:none;
 }
-
-button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    background: linear-gradient(90deg,#3b82f6,#22c55e);
-    color: white;
-    font-weight: bold;
+button{
+background:linear-gradient(45deg,#4facfe,#00f2fe);
+color:white;
+font-size:16px;
+}
+.app{
+background:#0c1c3a;
+padding:10px;
+margin:10px;
+border-radius:10px;
+}
+.delete{
+background:red;
+margin-top:5px;
 }
 </style>
 </head>
-
 <body>
 
 <h2>Admin Panel</h2>
 
 <input id="name" placeholder="App name">
-<input id="logo" placeholder="Logo image link">
+<input id="image" placeholder="Logo image link">
 <input id="link" placeholder="Download link">
 <textarea id="desc" placeholder="Description"></textarea>
-
-<br>
 <button onclick="addApp()">Add App</button>
 
+<h3>Apps List</h3>
+<div id="apps"></div>
+
 <script>
-function addApp() {
-    let apps = JSON.parse(localStorage.getItem("apps")) || [];
-
-    apps.push({
-        name: document.getElementById("name").value,
-        logo: document.getElementById("logo").value,
-        link: document.getElementById("link").value,
-        desc: document.getElementById("desc").value
-    });
-
-    localStorage.setItem("apps", JSON.stringify(apps));
-    alert("App added successfully!");
+function loadApps(){
+let apps = JSON.parse(localStorage.getItem("apps")||"[]");
+let html="";
+apps.forEach((app,i)=>{
+html+=`
+<div class="app">
+<b>${app.name}</b><br>
+<button class="delete" onclick="deleteApp(${i})">Delete</button>
+</div>`;
+});
+document.getElementById("apps").innerHTML=html;
 }
+
+function addApp(){
+let apps = JSON.parse(localStorage.getItem("apps")||"[]");
+apps.push({
+name:document.getElementById("name").value,
+image:document.getElementById("image").value,
+link:document.getElementById("link").value,
+desc:document.getElementById("desc").value
+});
+localStorage.setItem("apps",JSON.stringify(apps));
+loadApps();
+}
+
+function deleteApp(i){
+let apps = JSON.parse(localStorage.getItem("apps")||"[]");
+apps.splice(i,1);
+localStorage.setItem("apps",JSON.stringify(apps));
+loadApps();
+}
+
+loadApps();
 </script>
 
 </body>
