@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    background:#050914;
+    font-family:Arial, sans-serif;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+input, textarea {
+    width:90%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:none;
+}
+button {
+    padding:12px 25px;
+    border:none;
+    border-radius:25px;
+    background:linear-gradient(90deg,#ff2a6d,#00ffa2);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+.app {
+    margin-top:15px;
+}
+.delete {
+    background:red;
+    margin-left:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Admin Panel</h2>
+
+<input id="name" placeholder="App name">
+<input id="logo" placeholder="Logo image link">
+<input id="link" placeholder="Download link">
+<textarea id="desc" placeholder="Description"></textarea>
+
+<br>
+<button onclick="addApp()">Add App</button>
+
+<h3>Apps List</h3>
+<div id="apps"></div>
+
+<script src="apps.js"></script>
+<script>
+function renderApps(){
+    let container = document.getElementById("apps");
+    container.innerHTML = "";
+    apps.forEach((app,i)=>{
+        container.innerHTML += `
+        <div class="app">
+            ${app.name}
+            <button class="delete" onclick="deleteApp(${i})">Delete</button>
+        </div>`;
+    });
+}
+
+function addApp(){
+    let app = {
+        name:document.getElementById("name").value,
+        logo:document.getElementById("logo").value,
+        link:document.getElementById("link").value,
+        desc:document.getElementById("desc").value
+    };
+    apps.push(app);
+    localStorage.setItem("apps",JSON.stringify(apps));
+    renderApps();
+}
+
+function deleteApp(i){
+    apps.splice(i,1);
+    localStorage.setItem("apps",JSON.stringify(apps));
+    renderApps();
+}
+
+renderApps();
+</script>
+
+</body>
+</html>
