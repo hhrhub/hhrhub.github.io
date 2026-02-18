@@ -3,81 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HHRAPK</title>
+<title>HHR Hub</title>
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(180deg, #020617, #020617);
-    color: white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(180deg, #020617, #020617);
+  color: white;
+  text-align: center;
 }
 
 .header {
-    padding: 20px;
-    text-align: center;
+  padding: 30px 20px;
 }
 
 .header h1 {
-    margin: 0;
-    font-size: 34px;
+  margin: 0;
+  font-size: 40px;
 }
 
-.search {
-    padding: 15px;
-    text-align: center;
-}
-
-.search input {
-    width: 90%;
-    padding: 12px;
-    border-radius: 30px;
-    border: none;
-    background: #0f172a;
-    color: white;
+.header p {
+  color: #94a3b8;
 }
 
 .container {
-    padding: 15px;
+  padding: 20px;
 }
 
 .card {
-    display: flex;
-    align-items: center;
-    background: #0f172a;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 15px;
+  background: #020617;
+  border-radius: 20px;
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 350px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.05);
 }
 
 .card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 15px;
-    margin-right: 15px;
+  width: 80px;
+  border-radius: 20px;
 }
 
-.info {
-    flex: 1;
+.card h2 {
+  margin: 15px 0 5px;
 }
 
-.info h3 {
-    margin: 0;
+.card p {
+  color: #94a3b8;
 }
 
-.info p {
-    margin: 5px 0 0;
-    color: #94a3b8;
-    font-size: 14px;
-}
-
-.btn {
-    padding: 8px 18px;
-    border-radius: 20px;
-    background: linear-gradient(90deg,#3b82f6,#22c55e);
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
+.button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 12px 30px;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -85,43 +69,29 @@ body {
 <body>
 
 <div class="header">
-    <h1>HHRAPK</h1>
+  <h1>HHR Hub</h1>
+  <p>Premium App Download Center</p>
 </div>
 
-<div class="search">
-    <input type="text" id="search" placeholder="Search apps...">
-</div>
+<div class="container" id="appContainer"></div>
 
-<div class="container" id="appList"></div>
-
+<script src="apps.js"></script>
 <script>
-let apps = JSON.parse(localStorage.getItem("apps")) || [];
+let container = document.getElementById("appContainer");
 
-function renderApps(filter="") {
-    let container = document.getElementById("appList");
-    container.innerHTML = "";
+apps.forEach(app => {
+  let card = document.createElement("div");
+  card.className = "card";
 
-    apps
-    .filter(app => app.name.toLowerCase().includes(filter.toLowerCase()))
-    .forEach(app => {
-        container.innerHTML += `
-        <div class="card">
-            <img src="${app.logo}">
-            <div class="info">
-                <h3>${app.name}</h3>
-                <p>${app.desc}</p>
-            </div>
-            <a class="btn" href="${app.link}">Install</a>
-        </div>
-        `;
-    });
-}
+  card.innerHTML = `
+    <img src="${app.logo}">
+    <h2>${app.name}</h2>
+    <p>${app.desc}</p>
+    <a class="button" href="${app.link}">Download</a>
+  `;
 
-document.getElementById("search").addEventListener("input", e=>{
-    renderApps(e.target.value);
+  container.appendChild(card);
 });
-
-renderApps();
 </script>
 
 </body>
