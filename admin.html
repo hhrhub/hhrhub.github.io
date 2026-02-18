@@ -3,118 +3,129 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel</title>
+<title>HHRAPK Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #020617;
-  color: white;
-  text-align: center;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    background: url('background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
 }
 
-.panel {
-  max-width: 400px;
-  margin: 40px auto;
-  padding: 20px;
+.overlay {
+    background: rgba(0,0,0,0.6);
+    min-height: 100vh;
+    padding: 40px 20px;
 }
 
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 10px;
-  border: none;
+.logo {
+    width: 110px;
+    height: 110px;
+    border-radius: 25px;
+    box-shadow: 0 0 25px #ff2a6d;
 }
 
-button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #3b82f6, #22c55e);
-  color: white;
-  font-weight: bold;
-  margin-top: 10px;
+.title {
+    font-size: 36px;
+    color: #ff2a6d;
+    margin: 15px 0 5px;
 }
 
-.app-list {
-  margin-top: 30px;
+.subtitle {
+    color: #ccc;
+    margin-bottom: 30px;
 }
 
-.app-item {
-  background: #020617;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 10px;
+.enter-btn {
+    display: inline-block;
+    padding: 14px 30px;
+    border-radius: 40px;
+    background: linear-gradient(90deg,#ff2a6d,#ff7b00);
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.apps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.card {
+    background: rgba(20,20,20,0.9);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 15px;
+}
+
+.card h3 {
+    margin: 10px 0 5px;
+}
+
+.card p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    background: linear-gradient(90deg,#2b7bff,#2bff88);
+    color: white;
+    text-decoration: none;
 }
 </style>
 </head>
-
 <body>
 
-<div class="panel">
-  <h2>Admin Panel</h2>
+<div class="overlay">
 
-  <input id="name" placeholder="App name">
-  <input id="logo" placeholder="Logo image link">
-  <input id="link" placeholder="Download link">
-  <textarea id="desc" placeholder="Description"></textarea>
+    <img src="logo.jpg" class="logo">
+    <div class="title">HHRAPK</div>
+    <div class="subtitle">SEQUENCIA MALEFICA</div>
 
-  <button onclick="addApp()">Add App</button>
+    <a href="#apps" class="enter-btn">ENTER STORE</a>
 
-  <div class="app-list" id="appList"></div>
+    <div id="apps" class="apps"></div>
+
 </div>
 
 <script src="apps.js"></script>
 <script>
-function saveApps() {
-  localStorage.setItem("apps", JSON.stringify(apps));
+const container = document.getElementById("apps");
+
+if (typeof apps !== "undefined") {
+    apps.forEach(app => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+            <img src="${app.logo}">
+            <h3>${app.name}</h3>
+            <p>${app.description || "Premium mod app"}</p>
+            <a class="download-btn" href="${app.link}">Download</a>
+        `;
+
+        container.appendChild(card);
+    });
 }
-
-function loadApps() {
-  let stored = localStorage.getItem("apps");
-  if (stored) {
-    apps = JSON.parse(stored);
-  }
-}
-
-function addApp() {
-  let app = {
-    name: document.getElementById("name").value,
-    logo: document.getElementById("logo").value,
-    link: document.getElementById("link").value,
-    desc: document.getElementById("desc").value
-  };
-
-  apps.push(app);
-  saveApps();
-  renderApps();
-}
-
-function deleteApp(index) {
-  apps.splice(index, 1);
-  saveApps();
-  renderApps();
-}
-
-function renderApps() {
-  let list = document.getElementById("appList");
-  list.innerHTML = "";
-
-  apps.forEach((app, index) => {
-    let div = document.createElement("div");
-    div.className = "app-item";
-    div.innerHTML = `
-      <b>${app.name}</b><br>
-      <button onclick="deleteApp(${index})">Delete</button>
-    `;
-    list.appendChild(div);
-  });
-}
-
-loadApps();
-renderApps();
 </script>
 
 </body>
