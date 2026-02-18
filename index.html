@@ -1,60 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>HHR Hub - Apps</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #2b7bff, #00c6ff);
-            color: white;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HHR Hub</title>
 
-        header {
-            padding: 40px 20px;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1e90ff, #00c6ff);
+    text-align: center;
+}
 
-        .app-card {
-            background: white;
-            color: black;
-            width: 260px;
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+.header {
+    padding: 40px 20px;
+    color: white;
+}
 
-        .app-card img {
-            width: 80px;
-            margin-bottom: 10px;
-        }
+.header h1 {
+    margin: 0;
+    font-size: 40px;
+}
 
-        .download-btn {
-            display: inline-block;
-            background: #2b7bff;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 25px;
-            text-decoration: none;
-            margin-top: 10px;
-        }
-    </style>
+.header p {
+    font-size: 18px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    width: 260px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+.card h2 {
+    margin: 15px 0 10px;
+}
+
+.card p {
+    color: #555;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #1e90ff;
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #0066cc;
+}
+</style>
 </head>
 
 <body>
 
-<header>
+<div class="header">
     <h1>HHR Hub</h1>
     <p>Official App Download Website</p>
-</header>
+</div>
 
-<div class="app-card">
-    <img src="images.png" alt="App Logo">
-    <h2>Netflix Mod</h2>
-    <p>Watch unlimited movies and shows.</p>
-    <a class="download-btn" href="https://t.me/Filee2bot?start=1f54e123-50ed-4fca-9dcd-9c549939e60f">Download</a>
+<div class="container">
+
+    <div class="card">
+        <img src="images.png" alt="Netflix">
+        <h2>Netflix Mod</h2>
+        <p>Watch unlimited movies and shows.</p>
+        <a href="#" class="btn">Download</a>
+    </div>
+
+    <div class="card">
+        <img src="prime.png" alt="Prime Video">
+        <h2>Prime Video Mod</h2>
+        <p>All ads removed, premium unlocked.</p>
+        <a href="#" class="btn">Download</a>
+    </div>
+
 </div>
 
 </body>
