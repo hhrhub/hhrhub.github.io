@@ -1,87 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel</title>
+
 <style>
-body{
-background:#020b1f;
-color:white;
-font-family:Arial;
-text-align:center;
-padding:20px;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #020617;
+  color: white;
+  text-align: center;
 }
-input,textarea,button{
-width:90%;
-margin:8px;
-padding:10px;
-border-radius:8px;
-border:none;
+
+.panel {
+  max-width: 400px;
+  margin: 40px auto;
 }
-button{
-background:linear-gradient(45deg,#4facfe,#00f2fe);
-color:white;
-font-size:16px;
+
+input, textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
 }
-.app{
-background:#0c1c3a;
-padding:10px;
-margin:10px;
-border-radius:10px;
+
+button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #3b82f6, #22c55e);
+  color: white;
+  cursor: pointer;
 }
-.delete{
-background:red;
-margin-top:5px;
+
+.app {
+  margin-top: 15px;
 }
 </style>
 </head>
 <body>
 
-<h2>Admin Panel</h2>
+<div class="panel" id="loginPanel">
+  <h2>Admin Login</h2>
+  <input type="password" id="password" placeholder="Enter password">
+  <br>
+  <button onclick="login()">Login</button>
+</div>
 
-<input id="name" placeholder="App name">
-<input id="image" placeholder="Logo image link">
-<input id="link" placeholder="Download link">
-<textarea id="desc" placeholder="Description"></textarea>
-<button onclick="addApp()">Add App</button>
+<div class="panel" id="adminPanel" style="display:none;">
+  <h2>Admin Panel</h2>
 
-<h3>Apps List</h3>
-<div id="apps"></div>
+  <input id="name" placeholder="App name">
+  <input id="logo" placeholder="Logo image link">
+  <input id="link" placeholder="Download link">
+  <textarea id="desc" placeholder="Description"></textarea>
+  <br>
+  <button onclick="addApp()">Add App</button>
+
+  <h3>Apps List</h3>
+  <div id="list"></div>
+</div>
 
 <script>
-function loadApps(){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-let html="";
-apps.forEach((app,i)=>{
-html+=`
-<div class="app">
-<b>${app.name}</b><br>
-<button class="delete" onclick="deleteApp(${i})">Delete</button>
-</div>`;
-});
-document.getElementById("apps").innerHTML=html;
+const PASSWORD = "1234";
+
+function login() {
+  const input = document.getElementById("password").value;
+  if (input === PASSWORD) {
+    document.getElementById("loginPanel").style.display = "none";
+    document.getElementById("adminPanel").style.display = "block";
+    loadApps();
+  } else {
+    alert("Wrong password");
+  }
 }
 
-function addApp(){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-apps.push({
-name:document.getElementById("name").value,
-image:document.getElementById("image").value,
-link:document.getElementById("link").value,
-desc:document.getElementById("desc").value
-});
-localStorage.setItem("apps",JSON.stringify(apps));
-loadApps();
+function loadApps() {
+  const apps = JSON.parse(localStorage.getItem("apps")) || [];
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  apps.forEach((app, index) => {
+    const div = document.createElement("div");
+    div.className = "app";
+    div.innerHTML = `
+      ${app.name}
+      <button onclick="deleteApp(${index})">Delete</button>
+    `;
+    list.appendChild(div);
+  });
 }
 
-function deleteApp(i){
-let apps = JSON.parse(localStorage.getItem("apps")||"[]");
-apps.splice(i,1);
-localStorage.setItem("apps",JSON.stringify(apps));
-loadApps();
+function addApp() {
+  const apps = JSON.parse(localStorage.getItem("apps")) || [];
+
+  apps.push({
+    name: name.value,
+    logo: logo.value,
+    link: link.value,
+    desc: desc.value
+  });
+
+  localStorage.setItem("apps", JSON.stringify(apps));
+  loadApps();
 }
 
-loadApps();
+function deleteApp(index) {
+  const apps = JSON.parse(localStorage.getItem("apps")) || [];
+  apps.splice(index, 1);
+  localStorage.setItem("apps", JSON.stringify(apps));
+  loadApps();
+}
 </script>
 
 </body>
