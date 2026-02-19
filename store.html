@@ -3,43 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <title>HHRAPK Store</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-    background:#050914;
-    color:white;
-    font-family:Arial;
-    text-align:center;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #020617;
+    color: white;
+    text-align: center;
 }
+
 h1 {
-    color:#ff2a6d;
+    color: #ff2a6d;
+    margin-top: 20px;
 }
-.grid {
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:20px;
+
+.apps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+    padding: 20px;
 }
+
 .card {
-    background:#111;
-    padding:20px;
-    border-radius:20px;
-    width:160px;
+    background: #111827;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255,0,90,0.2);
 }
+
 .card img {
-    width:80px;
-    height:80px;
-    border-radius:15px;
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    object-fit: cover;
 }
-button {
-    margin-top:10px;
-    padding:8px 20px;
-    border:none;
-    border-radius:20px;
-    background:linear-gradient(90deg,#ff2a6d,#00ffa2);
-    color:white;
+
+.card h3 {
+    margin: 10px 0;
+}
+
+.card a {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    background: linear-gradient(90deg,#ff2a6d,#ff7a00);
 }
 </style>
 </head>
@@ -48,23 +58,16 @@ button {
 
 <h1>HHRAPK STORE</h1>
 
-<div class="grid" id="apps"></div>
+<div class="apps">
 
-<script src="apps.js"></script>
-<script>
-let container = document.getElementById("apps");
-
-apps.forEach(app=>{
-    container.innerHTML += `
+    <!-- Sample App -->
     <div class="card">
-        <img src="${app.logo}">
-        <h3>${app.name}</h3>
-        <button onclick="location.href='${app.link}'">
-        Download
-        </button>
-    </div>`;
-});
-</script>
+        <img src="logo.jpg">
+        <h3>Sample App</h3>
+        <a href="#">Download</a>
+    </div>
+
+</div>
 
 </body>
 </html>
